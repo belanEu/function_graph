@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/evgeny/cpp_projects/function_plot/coordinatesystemxy.cpp
+coordinatesystemxy.hpp
+/home/evgeny/cpp_projects/function_plot/coordinatesystemxy.hpp
+
+/home/evgeny/cpp_projects/function_plot/coordinatesystemxy.hpp
+iostream
+-
+defs.hpp
+/home/evgeny/cpp_projects/function_plot/defs.hpp
+
+/home/evgeny/cpp_projects/function_plot/defs.hpp
+ncurses.h
+-
+
+/home/evgeny/cpp_projects/function_plot/main.cpp
+iostream
+-
+thread
+-
+chrono
+-
+vertex.hpp
+/home/evgeny/cpp_projects/function_plot/vertex.hpp
+screen.hpp
+/home/evgeny/cpp_projects/function_plot/screen.hpp
+coordinatesystemxy.hpp
+/home/evgeny/cpp_projects/function_plot/coordinatesystemxy.hpp
+defs.hpp
+/home/evgeny/cpp_projects/function_plot/defs.hpp
+
+/home/evgeny/cpp_projects/function_plot/screen.hpp
+defs.hpp
+/home/evgeny/cpp_projects/function_plot/defs.hpp
+
+/home/evgeny/cpp_projects/function_plot/vertex.hpp
+iostream
+-
+

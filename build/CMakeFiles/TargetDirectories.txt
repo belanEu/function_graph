@@ -1,0 +1,3 @@
+/home/evgeny/cpp_projects/function_plot/build/CMakeFiles/rebuild_cache.dir
+/home/evgeny/cpp_projects/function_plot/build/CMakeFiles/edit_cache.dir
+/home/evgeny/cpp_projects/function_plot/build/CMakeFiles/test.dir
