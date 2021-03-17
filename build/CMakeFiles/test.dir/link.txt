@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/test.dir/main.cpp.o CMakeFiles/test.dir/vertex.cpp.o CMakeFiles/test.dir/screen.cpp.o CMakeFiles/test.dir/coordinatesystemxy.cpp.o  -o test  -lncurses 

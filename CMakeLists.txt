@@ -7,12 +7,14 @@ set(SOURCES
         vertex.cpp
         screen.cpp
         coordinatesystemxy.cpp
+        keycontroller.cpp
 )
 
 set(HEADERS
         vertex.hpp
         screen.hpp
         coordinatesystemxy.hpp
+        keycontroller.hpp
 )
 
 set(LINKS -lncurses)

@@ -168,28 +168,28 @@ void CoordinateSystemXY::initializeCoordinateSystem()
 
 void CoordinateSystemXY::goLeft(int step)
 {
-	this->focusX = std::min(this->maxX - 1, this->xO + step);
+	this->focusX = std::min(this->maxX - 1, this->focusX + step);
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
 void CoordinateSystemXY::goRight(int step)
 {
-	this->focusX = std::max(0, this->xO - step);
+	this->focusX = std::max(0, this->focusX - step);
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
 void CoordinateSystemXY::goTop(int step)
 {
-	this->focusY = std::min(this->maxY - 1, this->yO + step);
+	this->focusY = std::min(this->maxY - 1, this->focusY + step);
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
 void CoordinateSystemXY::goBottom(int step)
 {
-	this->focusY = std::max(0, this->yO - step);
+	this->focusY = std::max(0, this->focusY - step);
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
