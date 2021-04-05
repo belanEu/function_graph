@@ -39,53 +39,106 @@ void CoordinateSystemXY::buildAxisX(int xO, int yO)
 	// todo: replace building of X-axis here from buildCoordinateSystem method
 	int diff, tmp;
 
-	/* OX */
-	// i < xO
-	diff = 1;
-	for (int i = xO - 1; i >= 0; i--)
+	if (xO < 0)
 	{
-		tmp = diff % this->numOfAllPiecesOfAxisInterval;
-		if (tmp % (this->numOfIntermediateSpaces + 1))
-		{
-			this->content[yO * this->maxX + i] = '-';
-		}
-		else
-		{
-			if (tmp)
-			{
-				this->content[yO * this->maxX + i] = '+';
-			}
-			else
-			{
-				this->content[yO * this->maxX + i] = '|';
-			}
-		}		
-		diff++;
-	}
+		diff = std::abs(xO - this->xO) - int(this->maxX / 2);
 
-	// i > xO
-	diff = 1;
-	for (int i = xO + 1; i < this->maxX; i++)
-	{
-		tmp = diff % this->numOfAllPiecesOfAxisInterval;
-		if (tmp % (this->numOfIntermediateSpaces + 1))
+		for (int i = 0; i < this->maxX; i++)
 		{
-			this->content[yO * this->maxX + i] = '-';
-		}
-		else
-		{
-			if (tmp)
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
 			{
-				this->content[yO * this->maxX + i] = '+';
+				this->content[yO * this->maxX + i] = '-';
 			}
 			else
 			{
-				this->content[yO * this->maxX + i] = '|';
+				if (tmp)
+				{
+					this->content[yO * this->maxX + i] = '+';
+				}
+				else
+				{
+					this->content[yO * this->maxX + i] = '|';
+				}
 			}
-		}		
-		diff++;
+			diff++;
+		}
 	}
-	/* OX */
+	else if (xO >= this->maxX)
+	{
+		diff = std::abs(xO - this->xO) - int(this->maxX / 2) + 1 - (this->maxX & 1);
+
+		for (int i = this->maxX - 1; i >= 0; i--)
+		{
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
+			{
+				this->content[yO * this->maxX + i] = '-';
+			}
+			else
+			{
+				if (tmp)
+				{
+					this->content[yO * this->maxX + i] = '+';
+				}
+				else
+				{
+					this->content[yO * this->maxX + i] = '|';
+				}
+			}
+			diff++;
+		}
+	}
+	else
+	{
+		/* OX */
+		// i < xO
+		diff = 1;
+		for (int i = xO - 1; i >= 0; i--)
+		{
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
+			{
+				this->content[yO * this->maxX + i] = '-';
+			}
+			else
+			{
+				if (tmp)
+				{
+					this->content[yO * this->maxX + i] = '+';
+				}
+				else
+				{
+					this->content[yO * this->maxX + i] = '|';
+				}
+			}		
+			diff++;
+		}
+
+		// i > xO
+		diff = 1;
+		for (int i = xO + 1; i < this->maxX; i++)
+		{
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
+			{
+				this->content[yO * this->maxX + i] = '-';
+			}
+			else
+			{
+				if (tmp)
+				{
+					this->content[yO * this->maxX + i] = '+';
+				}
+				else
+				{
+					this->content[yO * this->maxX + i] = '|';
+				}
+			}		
+			diff++;
+		}
+		/* OX */
+	}
 }
 
 
@@ -94,56 +147,59 @@ void CoordinateSystemXY::buildAxisY(int xO, int yO)
 	// todo: replace building of Y-axis here from buildCoordinateSystem method
 	int diff, tmp;
 
-    /* OY */
-	// i < yO
-	diff = 1;
-	for (int i = yO - 1; i >= 0; i--)
+	if (xO >= 0 && xO < this->maxX)
 	{
-		tmp = diff % this->numOfAllPiecesOfAxisInterval;
-		if (tmp % (this->numOfIntermediateSpaces + 1))
+		/* OY */
+		// i < yO
+		diff = 1;
+		for (int i = yO - 1; i >= 0; i--)
 		{
-			this->content[i * this->maxX + xO] = '|';
-		}
-		else
-		{
-			if (tmp)
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
 			{
-				this->content[i * this->maxX + xO] = '+';
+				this->content[i * this->maxX + xO] = '|';
 			}
 			else
 			{
-				this->content[i * this->maxX + xO] = '=';
-			}
-		}		
-		diff++;
-	}
-
-	// i = yO
-	this->content[yO * this->maxX + xO] = 'O';
-
-	// i > yO
-	diff = 1;
-	for (int i = yO + 1; i < this->maxY; i++)
-	{
-		tmp = diff % this->numOfAllPiecesOfAxisInterval;
-		if (tmp % (this->numOfIntermediateSpaces + 1))
-		{
-			this->content[i * this->maxX + xO] = '|';
+				if (tmp)
+				{
+					this->content[i * this->maxX + xO] = '+';
+				}
+				else
+				{
+					this->content[i * this->maxX + xO] = '=';
+				}
+			}		
+			diff++;
 		}
-		else
+
+		// i = yO
+		this->content[yO * this->maxX + xO] = 'O';
+
+		// i > yO
+		diff = 1;
+		for (int i = yO + 1; i < this->maxY; i++)
 		{
-			if (tmp)
+			tmp = diff % this->numOfAllPiecesOfAxisInterval;
+			if (tmp % (this->numOfIntermediateSpaces + 1))
 			{
-				this->content[i * this->maxX + xO] = '+';
+				this->content[i * this->maxX + xO] = '|';
 			}
 			else
 			{
-				this->content[i * this->maxX + xO] = '=';
-			}
-		}		
-		diff++;
+				if (tmp)
+				{
+					this->content[i * this->maxX + xO] = '+';
+				}
+				else
+				{
+					this->content[i * this->maxX + xO] = '=';
+				}
+			}		
+			diff++;
+		}
+		/* OY */
 	}
-	/* OY */
 }
 
 void CoordinateSystemXY::attachFocus()
@@ -168,14 +224,14 @@ void CoordinateSystemXY::initializeCoordinateSystem()
 
 void CoordinateSystemXY::goLeft(int step)
 {
-	this->focusX = std::min(this->maxX - 1, this->focusX + step);
+	this->focusX += step;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
 void CoordinateSystemXY::goRight(int step)
 {
-	this->focusX = std::max(0, this->focusX - step);
+	this->focusX -= step;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
