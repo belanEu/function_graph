@@ -38,6 +38,7 @@ class CoordinateSystemXY
     protected:
     void clearCoordinateSystem();
     void buildCoordinateSystem(int xO, int yO);
+    void setAxisXPeace(int screenY, int screenX, int difference);
     void buildAxisX(int xO, int yO);
     void buildAxisY(int xO, int yO);
     void attachFocus();
