@@ -44,6 +44,8 @@ class CoordinateSystemXY
     void buildAxisX(int xO, int yO);
     void buildAxisY(int xO, int yO);
     void attachFocus();
+
+    void attachXXFunction();
 };
 
 #endif

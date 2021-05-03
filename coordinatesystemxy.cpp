@@ -34,6 +34,28 @@ void CoordinateSystemXY::clearCoordinateSystem()
 	}
 }
 
+void CoordinateSystemXY::attachXXFunction()
+{
+
+	for (float i = 0; i < this->maxX; i += this->step)
+	{
+		int x = int (i * this->numOfAllPiecesOfAxisInterval);
+		int y = this->yO - int(i * i * this->numOfAllPiecesOfAxisInterval);
+		int coordinatePositive = y * this->maxX + this->xO + x;
+		int coordinateNegative = y * this->maxX + this->xO - x;
+
+		if (coordinatePositive < 0 || coordinatePositive > this->maxX * this->maxY) {
+			break;
+		}
+		if (coordinateNegative < 0 || coordinateNegative > this->maxX * this->maxY) {
+			break;
+		}
+		char sym = x % this->numOfAllPiecesOfAxisInterval == 0 ? 'O' : 'o';
+		this->content[coordinatePositive] = sym;
+		this->content[coordinateNegative] = sym;
+	}
+}
+
 void CoordinateSystemXY::setAxisXPeace(int screenX, int screenY, int difference)
 {
 	int tmp = difference % this->numOfAllPiecesOfAxisInterval;
@@ -182,6 +204,7 @@ void CoordinateSystemXY::initializeCoordinateSystem()
 {
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->xO, this->yO);
+	this->attachXXFunction();
 }
 
 void CoordinateSystemXY::goLeft(int step)
