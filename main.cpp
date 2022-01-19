@@ -15,7 +15,7 @@ int main()
 	curs_set(0);
 
 	Screen scr(stdscr);
-	CoordinateSystemXY sys(int(scr.width / 2), int(scr.height / 2), scr.width, scr.height, 3, 0.5);
+	CoordinateSystemXY sys(int(scr.width / 2), int(scr.height / 2), scr.width, scr.height, 1, 0.1);
 	
 	bool t = true;
 	while (t)
@@ -42,16 +42,16 @@ int main()
 				t = false;
 				break;
 			case KeyController::goTop:
-				sys.goTop(1);
+				sys.goTop();
 				break;
 			case KeyController::goBottom:
-				sys.goBottom(1);
+				sys.goBottom();
 				break;
 			case KeyController::goLeft:
-				sys.goLeft(1);
+				sys.goLeft();
 				break;
 			case KeyController::goRight:
-				sys.goRight(1);
+				sys.goRight();
 				break;
 		}
 	}

@@ -30,10 +30,10 @@ class CoordinateSystemXY
     }
 
     void initializeCoordinateSystem();
-    void goLeft(int step);
-    void goRight(int step);
-    void goTop(int step);
-    void goBottom(int step);
+    void goLeft();
+    void goRight();
+    void goTop();
+    void goBottom();
 
     protected:
     void clearCoordinateSystem();
@@ -45,7 +45,8 @@ class CoordinateSystemXY
     void buildAxisY(int xO, int yO);
     void attachFocus();
 
-    void attachXXFunction();
+    void attachFunction(int xO, int yO);
+    void attachXXFunction(int xO, int yO);
 };
 
 #endif

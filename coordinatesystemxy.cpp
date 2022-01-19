@@ -21,6 +21,7 @@ CoordinateSystemXY::CoordinateSystemXY(int xO, int yO, int maxX, int maxY, int n
 	this->initializeCoordinateSystem();
 }
 
+// todo: create contentBuffer for pre-render
 void CoordinateSystemXY::clearCoordinateSystem()
 {
 	for (int i = 0; i < this->maxY; i++)
@@ -34,25 +35,53 @@ void CoordinateSystemXY::clearCoordinateSystem()
 	}
 }
 
-void CoordinateSystemXY::attachXXFunction()
+void CoordinateSystemXY::attachFunction(int xO, int yO)
 {
-
-	for (float i = 0; i < this->maxX; i += this->step)
+	for (float x = 0; x < this->maxX; x += this->step * this->numOfAllPiecesOfAxisInterval)
 	{
-		int x = int (i * this->numOfAllPiecesOfAxisInterval);
-		int y = this->yO - int(i * i * this->numOfAllPiecesOfAxisInterval);
-		int coordinatePositive = y * this->maxX + this->xO + x;
-		int coordinateNegative = y * this->maxX + this->xO - x;
+		// y = x - 2
+		// float y = yO + (xO - x) + 2 * this->numOfAllPiecesOfAxisInterval;
 
-		if (coordinatePositive < 0 || coordinatePositive > this->maxX * this->maxY) {
-			break;
+		float y = yO + (xO - x);
+
+		int diff = (this->xO & 1) * this->numOfIntermediateSpaces;
+
+		int i = int(y) + diff;
+		int j = int(x) - diff;
+
+		if (i < 0 || i >= this->maxY)
+		{
+			continue;
 		}
-		if (coordinateNegative < 0 || coordinateNegative > this->maxX * this->maxY) {
-			break;
+
+		this->content[i * this->maxX + j] = 'o';
+	}
+}
+
+void CoordinateSystemXY::attachXXFunction(int xO, int yO)
+{
+	// i и j могут быть отрицательными
+	int sumXDelta = xO - this->xO,
+		sumYDelta = yO - this->yO;
+	float xMin = sumXDelta / this->step,
+		xMax = (xO + this->xO) / this->step,
+		yMin = sumYDelta / this->step,
+		yMax = (yO + this->yO) / this->step;
+
+	for (float x = xMin; x < xMax; x += this->step)
+	{
+		float y = (x + xMin) * (x + xMin) + yMin;
+
+		if (y < yMin || y >= yMax)
+		{
+			continue;
 		}
-		char sym = x % this->numOfAllPiecesOfAxisInterval == 0 ? 'O' : 'o';
-		this->content[coordinatePositive] = sym;
-		this->content[coordinateNegative] = sym;
+
+		int j = int(x * this->numOfAllPiecesOfAxisInterval / sumXDelta);
+		int i = int(y * this->numOfAllPiecesOfAxisInterval / sumYDelta);
+
+		char sym = j % this->numOfAllPiecesOfAxisInterval == 0 ? '@' : 'o';
+		this->content[i * this->maxX + j] = sym;
 	}
 }
 
@@ -197,6 +226,8 @@ void CoordinateSystemXY::buildCoordinateSystem(int xO, int yO)
 	this->buildAxisX(xO, yO);
 	this->buildAxisY(xO, yO);
 	this->setStartPointOfOXY(xO, yO);
+
+	this->attachFunction(xO, yO);
 	this->attachFocus();
 }
 
@@ -204,33 +235,32 @@ void CoordinateSystemXY::initializeCoordinateSystem()
 {
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->xO, this->yO);
-	this->attachXXFunction();
 }
 
-void CoordinateSystemXY::goLeft(int step)
+void CoordinateSystemXY::goLeft()
 {
-	this->focusX += step;
+	this->focusX += this->step * this->numOfAllPiecesOfAxisInterval;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
-void CoordinateSystemXY::goRight(int step)
+void CoordinateSystemXY::goRight()
 {
-	this->focusX -= step;
+	this->focusX -= this->step * this->numOfAllPiecesOfAxisInterval;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
-void CoordinateSystemXY::goTop(int step)
+void CoordinateSystemXY::goTop()
 {
-	this->focusY += step;
+	this->focusY += this->step * this->numOfAllPiecesOfAxisInterval;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
 
-void CoordinateSystemXY::goBottom(int step)
+void CoordinateSystemXY::goBottom()
 {
-	this->focusY -= step;
+	this->focusY -= this->step * this->numOfAllPiecesOfAxisInterval;
 	this->clearCoordinateSystem();
 	this->buildCoordinateSystem(this->focusX, this->focusY);
 }
